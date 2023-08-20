@@ -13,24 +13,28 @@ class Product {
             metadata: product,
           }).send(res)
      }
-     findOneById = async(req, res) => {
-          const { id } = req.params;
-          const product = await productService.findOneById(id)
-          return new Ok({metadata: product}).send(res)
-     }
-     findOneAndUpdate =async (req, res) => {
-          const { id } = req.params;
-          const { payload } = req.body;
-          const product = await productService.findOneAndUpdate({ _id: id, payload })
-          return new Ok({ metadata: product, message:"Update product successful !" }).send(res)
-          
-     }
-     findOneAndDelete =async (req, res) => { 
-          const { id } = req.params;
-          await productService.findOneAndDelete(id)
-          return new Ok({message: "Delete product successful !"}).send(res)
-
-     }
+     findOneById = async (req, res) => {
+       const { id } = req.params;
+       const product = await productService.findOneById({ _id: id });
+       return new Ok({ metadata: product }).send(res);
+     };
+     findOneAndUpdate = async (req, res) => {
+       const { id } = req.params;
+       const { payload } = req.body;
+       const product = await productService.findOneAndUpdate({
+         _id: id,
+         payload,
+       });
+       return new Ok({
+         metadata: product,
+         message: "Update product successful !",
+       }).send(res);
+     };
+     findOneAndDelete = async (req, res) => {
+       const { id } = req.params;
+       await productService.findOneAndDelete({ _id: id });
+       return new Ok({ message: "Delete product successful !" }).send(res);
+     };
      
 }
 module.exports = new Product();

@@ -19,7 +19,6 @@ class SuccessResponse {
     this.reasonStatus = reasonStatus;
   }
   send = (res) => {
-    console.log(this);
     return res.status(this.status).json(this);
   };
 }

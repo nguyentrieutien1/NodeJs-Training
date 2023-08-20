@@ -20,11 +20,11 @@ class Product {
     await sleep(FETCH_TIME_OUT);
     saveDbData({ products });
     return payload;
-  };
-  findOneById = async (id) => {
-    if (!id) throw new BadRequestError("Missing user id");
+};
+  findOneById = async ({ _id }) => {
+    if (!_id) throw new BadRequestError("Missing user id");
     const { products } = await getDbData();
-    const product = products.find((product) => product._id == id);
+    const product = products.find((product) => product._id == _id);
     if (!product) throw new NotFound("Product not found !");
     await sleep(FETCH_TIME_OUT);
     return product;
@@ -39,9 +39,8 @@ class Product {
     sleep(FETCH_TIME_OUT);
     return products[index];
   };
-  findOneAndDelete = async (_id) => {
-    if (!_id)
-    throw new BadRequestError("Missing user id or payload");
+  findOneAndDelete = async ({ _id }) => {
+    if (!_id) throw new BadRequestError("Missing user id or payload");
     const { products } = await getDbData();
     const index = products.findIndex((product) => product._id === _id);
     if (index === -1) throw new NotFound("Product not found !");
