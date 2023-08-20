@@ -1,0 +1,5 @@
+{
+  "appService.zipIgnorePattern": ["node_modules{,/**}", ".vscode{,/**}"],
+  "appService.defaultWebAppToDeploy": "/subscriptions/dc2cc259-cd71-4bca-b89f-46a048af3565/resourceGroups/TonyTech-Training_group/providers/Microsoft.Web/sites/TonyTech-Training",
+  "appService.deploySubpath": "."
+}
