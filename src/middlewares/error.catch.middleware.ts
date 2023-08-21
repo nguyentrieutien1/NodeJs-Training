@@ -3,6 +3,4 @@ const catchErrorHandler = callback => {
           callback(req, res, next).catch(next)
      };
 }
-export= {
-  catchErrorHandler,
-};
+export { catchErrorHandler };

@@ -1,15 +1,16 @@
-const { catchErrorHandler } = require("../middlewares/error.catch.middleware");
+import productController from "../controllers/product.controller";
+import { catchErrorHandler } from "../middlewares/error.catch.middleware";
+
 const router = require("express").Router();
-const ProductController = require("../controllers/product.controller");
-router.get("/products", catchErrorHandler(ProductController.findAll));
-router.get("/product/:id", catchErrorHandler(ProductController.findOneById));
-router.post("/product", catchErrorHandler(ProductController.create));
+router.get("/products", catchErrorHandler(productController.findAll));
+router.get("/product/:id", catchErrorHandler(productController.findOneById));
+router.post("/product", catchErrorHandler(productController.create));
 router.put(
   "/product/:id",
-  catchErrorHandler(ProductController.findOneAndUpdate)
+  catchErrorHandler(productController.findOneAndUpdate)
 );
 router.delete(
   "/product/:id",
-  catchErrorHandler(ProductController.findOneAndDelete)
+  catchErrorHandler(productController.findOneAndDelete)
 );
 export = router;

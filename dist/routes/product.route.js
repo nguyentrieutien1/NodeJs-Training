@@ -1,10 +1,13 @@
 "use strict";
-const { catchErrorHandler } = require("../middlewares/error.catch.middleware");
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+const product_controller_1 = __importDefault(require("../controllers/product.controller"));
+const error_catch_middleware_1 = require("../middlewares/error.catch.middleware");
 const router = require("express").Router();
-const ProductController = require("../controllers/product.controller");
-router.get("/products", catchErrorHandler(ProductController.findAll));
-router.get("/product/:id", catchErrorHandler(ProductController.findOneById));
-router.post("/product", catchErrorHandler(ProductController.create));
-router.put("/product/:id", catchErrorHandler(ProductController.findOneAndUpdate));
-router.delete("/product/:id", catchErrorHandler(ProductController.findOneAndDelete));
+router.get("/products", (0, error_catch_middleware_1.catchErrorHandler)(product_controller_1.default.findAll));
+router.get("/product/:id", (0, error_catch_middleware_1.catchErrorHandler)(product_controller_1.default.findOneById));
+router.post("/product", (0, error_catch_middleware_1.catchErrorHandler)(product_controller_1.default.create));
+router.put("/product/:id", (0, error_catch_middleware_1.catchErrorHandler)(product_controller_1.default.findOneAndUpdate));
+router.delete("/product/:id", (0, error_catch_middleware_1.catchErrorHandler)(product_controller_1.default.findOneAndDelete));
 module.exports = router;
