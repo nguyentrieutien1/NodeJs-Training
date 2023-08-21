@@ -20,29 +20,29 @@ class Product {
     await sleep(FETCH_TIME_OUT);
     saveDbData({ products });
     return payload;
-};
-  findOneById = async ({ _id }) => {
-    if (!_id) throw new BadRequestError("Missing user id");
+  };
+  findOneById = async ({ id }) => {
+    if (!id) throw new BadRequestError("Missing user id");
     const { products } = await getDbData();
-    const product = products.find((product) => product._id == _id);
+    const product = products.find((product) => product.id == id);
     if (!product) throw new NotFound("Product not found !");
     await sleep(FETCH_TIME_OUT);
     return product;
   };
-  findOneAndUpdate = async ({ _id, payload }) => {
-    if (!_id || !payload)
+  findOneAndUpdate = async ({ id, payload }) => {
+    if (!id || !payload)
       throw new BadRequestError("Missing user id or payload");
     const { products } = await getDbData();
-    const index = products.findIndex((product) => product._id === _id);
+    const index = products.findIndex((product) => product.id == id);
     products[index] = { ...products[index], ...payload };
     saveDbData({ products });
     sleep(FETCH_TIME_OUT);
     return products[index];
   };
-  findOneAndDelete = async ({ _id }) => {
-    if (!_id) throw new BadRequestError("Missing user id or payload");
+  findOneAndDelete = async ({ id }) => {
+    if (!id) throw new BadRequestError("Missing user id or payload");
     const { products } = await getDbData();
-    const index = products.findIndex((product) => product._id === _id);
+    const index = products.findIndex((product) => product.id == id);
     if (index === -1) throw new NotFound("Product not found !");
     products.splice(index, 1);
     await sleep(FETCH_TIME_OUT);
