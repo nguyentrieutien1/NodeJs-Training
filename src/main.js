@@ -1,8 +1,8 @@
 const express = require("express");
-const { errorHandler } = require("../middlewares/error.middleware");
+const { errorHandler } = require("./middlewares/error.middleware");
 const app = express();
-const { checkDbFile } = require("./../middlewares/check.db")
-const appRouters = require("./../routes/index.route")
+const { checkDbFile } = require("./middlewares/check.db")
+const appRouters = require("./routes/index.route")
 const cors = require("cors");
 require("dotenv").config();
 const PORT = process.env.PORT || 9000;

@@ -6,7 +6,7 @@ const { saveDbData } = require("../helpers/save_data_db");
 const { v4: uuidv4 } = require("uuid");
 class Product {
   findAll = async () => {
-    const products = await getDbData();
+    const { products } = await getDbData();
     await sleep(FETCH_TIME_OUT);
     return products;
   };

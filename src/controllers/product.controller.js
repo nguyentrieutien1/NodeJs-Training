@@ -1,8 +1,9 @@
-const {Ok, Success} = require("../core/success.response");
+const { Ok, Success } = require("../core/success.response");
 const productService = require("../services/product.service");
 class Product {
   findAll = async (req, res) => {
     const products = await productService.findAll();
+    console.log(products);
     return new Ok({
       metadata: products,
       message: "Get all product successful !",
@@ -19,6 +20,7 @@ class Product {
   findOneById = async (req, res) => {
     const { id } = req.params;
     const product = await productService.findOneById({ id });
+    console.log(product);
     return new Ok({ metadata: product }).send(res);
   };
   findOneAndUpdate = async (req, res) => {
