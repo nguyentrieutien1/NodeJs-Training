@@ -6,7 +6,7 @@
   "type": "commonjs",
   "scripts": {
     "dev": "concurrently \"npx tsc -w\" \"node --watch dist/main.js\"",
-    "start": "nodemon --watch 'src/**/*.ts' --exec ts-node ./src/main.ts",
+    "start": "nodemon src/main.ts",
     "build": "npx tsc"
   },
   "author": "nguyentrieutien",

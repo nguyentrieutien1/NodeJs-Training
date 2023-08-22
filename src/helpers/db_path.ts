@@ -1,3 +1,4 @@
 import path from "path";
-const dbPath = path.join(__dirname, "../database/db.json");
-export { dbPath };
+const cartdbPath = path.join(__dirname, "../database/cart.json");
+const productdbPath = path.join(__dirname, "../database/products.json");
+export { cartdbPath, productdbPath };

@@ -1,27 +1,34 @@
 import { FETCH_TIME_OUT } from "../contains/fetch_time_out";
-import { getCartDbData } from "../helpers/get_data_db";
-import { sleep } from "../helpers/sleep";
 import { BadRequestError, NotFound } from "../core/error.response";
+import { getCartDbData } from "../helpers/get_data_db";
 import { saveDbData } from "../helpers/save_data_db";
-import { v4 as uuidv4 } from "uuid";
-import { Item } from "../types/item.type";
-import { CartModel } from "../models/cart.model";
+import { sleep } from "../helpers/sleep";
 
-class CartService {
-  findAll = async (): Promise<CartModel[]> => {
-    const cart: CartModel[] = await CartModel.findAll();
+class CartModel {
+  id: number;
+  quantity: number;
+  constructor({ id, quantity }: { id: number; quantity: number }) {
+    this.id = id;
+    this.quantity = quantity;
+  }
+  static findAll = async (): Promise<CartModel[]> => {
+    const cart: CartModel[] = await getCartDbData();
     await sleep(FETCH_TIME_OUT);
     return cart;
   };
 
-  create = async ({ payload }: { payload: CartModel }): Promise<CartModel> => {
-    const cartItem: CartModel = await new CartModel(payload);
-    const cartInstance = await cartItem.save();
-    return cartInstance;
-
+  save = async (): Promise<CartModel> => {
+    if (!this) {
+      throw new BadRequestError("Dont't have payload");
+    }
+    const { cart }: { cart: CartModel[] } = await getCartDbData();
+    cart.push(this);
+    await sleep(FETCH_TIME_OUT);
+    saveDbData({ cart });
+    return this;
   };
 
-  findOneById = async ({ id }: { id: number }): Promise<CartModel> => {
+  static findOneById = async ({ id }: { id: number }): Promise<CartModel> => {
     if (!id) throw new BadRequestError("Missing cart item id");
     const { cart }: { cart: CartModel[] } = await getCartDbData();
     const product: CartModel = cart.find(
@@ -32,7 +39,7 @@ class CartService {
     return product;
   };
 
-  findOneAndUpdate = async ({
+  static findOneAndUpdate = async ({
     id,
     quantity,
   }: {
@@ -52,7 +59,7 @@ class CartService {
     return cart[index];
   };
 
-  findOneAndDelete = async ({ id }: { id: number }) => {
+  static findOneAndDelete = async ({ id }: { id: number }) => {
     if (!id) throw new BadRequestError("Missing cart item or payload");
     const { cart } = await getCartDbData();
     const index: number = cart.findIndex(
@@ -65,5 +72,4 @@ class CartService {
     return 1;
   };
 }
-
-export default new CartService();
+export { CartModel };

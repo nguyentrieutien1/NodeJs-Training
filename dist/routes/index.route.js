@@ -1,6 +1,6 @@
 "use strict";
-const productRouter = require("./product.route");
+const cartRouter = require("./cart.route");
 const router = (app) => {
-    app.use("/api", productRouter);
+    app.use("/api", cartRouter);
 };
 module.exports = router;

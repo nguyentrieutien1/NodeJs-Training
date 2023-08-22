@@ -32,4 +32,4 @@ class NotFound extends ErrorResponse {
     super(message, status);
   }
 }
-export { BadRequestError, NotFound };
+export { BadRequestError, NotFound, ErrorResponse };

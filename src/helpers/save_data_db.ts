@@ -1,8 +1,8 @@
 import fs from "fs";
-import { dbPath } from "./db_path";
+import { cartdbPath } from "./db_path";
 
 function saveDbData(data) {
-  fs.writeFileSync(dbPath, JSON.stringify(data, null, 2));
+  fs.writeFileSync(cartdbPath, JSON.stringify(data, null, 2));
 }
 
 export { saveDbData };

@@ -3,42 +3,43 @@ import { Ok, Success } from "../core/success.response";
 import cartService from "../services/cart.service";
 import { Item } from "../types/item.type";
 import { IdParams } from "../types/params.type";
+import { CartModel } from "../models/cart.model";
 class CartController {
-  findAll = async (req: Request, res: Response): Promise<Item[]> => {
-    const products: Item[] = await cartService.findAll();
+  findAll = async (req: Request, res: Response): Promise<CartModel[]> => {
+    const cart: CartModel[] = await cartService.findAll();
     return new Ok({
-      metadata: products,
+      metadata: cart,
       message: "Get all cart item successful !",
     }).send(res);
   };
-  create = async (req: Request, res: Response): Promise<Success> => {
-    const { payload }: { payload: Item } = req.body;
-    const product: Item = await cartService.create({ payload });
+  create = async (req: Request, res: Response): Promise<any> => {
+    const payload: CartModel = req.body;
+    const cart: CartModel = await cartService.create({ payload });
     return new Success({
       message: "cart item has been created !",
-      metadata: product,
+      metadata: cart,
     }).send(res);
   };
   findOneById = async (req: Request, res: Response): Promise<Ok> => {
     const { id } = req.params as unknown as IdParams;
-    const product: Item = await cartService.findOneById({ id });
-    return new Ok({ metadata: product, message: null }).send(res);
+    const cart: CartModel = await cartService.findOneById({ id });
+    return new Ok({ metadata: cart, message: null }).send(res);
   };
   findOneAndUpdate = async (req: Request, res: Response): Promise<Ok> => {
-    const { id } = req.params as unknown as IdParams;
-    const { payload }: { payload: Item } = req.body;
-    const product = await cartService.findOneAndUpdate({
-      id: id,
-      payload,
+    const { id } = req.params;
+    const { quantity } = req.body;
+    const cart = await cartService.findOneAndUpdate({
+      id: parseInt(id),
+      quantity,
     });
     return new Ok({
-      metadata: product,
+      metadata: cart,
       message: "Update cart item successful !",
     }).send(res);
   };
   findOneAndDelete = async (req: Request, res: Response): Promise<Ok> => {
-    const { id } = req.params as unknown as { id: number };
-    await cartService.findOneAndDelete({ id });
+    const { id } = req.params;
+    await cartService.findOneAndDelete({ id: parseInt(id) });
     return new Ok({
       message: "Delete cart item successful !",
       metadata: null,
