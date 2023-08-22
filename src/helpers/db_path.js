@@ -1,5 +1,4 @@
 const path = require("path")
-const dbPath = path.join(__dirname, "../database/db.json");
-module.exports = {
-  dbPath,
-};
+const cartdbPath = path.join(__dirname, "../database/cart.json");
+const productdbPath = path.join(__dirname, "../database/products.json");
+module.exports = { cartdbPath, productdbPath };

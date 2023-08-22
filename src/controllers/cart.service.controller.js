@@ -1,8 +1,8 @@
 const { Ok, Success } = require("../core/success.response");
-const productService = require("../services/product.service");
-class Product {
+const cartService = require("../services/cart.service");
+class CartController {
   findAll = async (req, res) => {
-    const products = await productService.findAll();
+    const products = await cartService.findAll();
     console.log(products);
     return new Ok({
       metadata: products,
@@ -11,7 +11,7 @@ class Product {
   };
   create = async (req, res) => {
     const { payload } = req.body;
-    const product = await productService.create({ payload });
+    const product = await cartService.create({ payload });
     return new Success({
       message: "Product has been created !",
       metadata: product,
@@ -19,14 +19,14 @@ class Product {
   };
   findOneById = async (req, res) => {
     const { id } = req.params;
-    const product = await productService.findOneById({ id });
+    const product = await cartService.findOneById({ id });
     console.log(product);
     return new Ok({ metadata: product }).send(res);
   };
   findOneAndUpdate = async (req, res) => {
     const { id } = req.params;
     const { payload } = req.body;
-    const product = await productService.findOneAndUpdate({
+    const product = await cartService.findOneAndUpdate({
       id,
       payload,
     });
@@ -37,8 +37,8 @@ class Product {
   };
   findOneAndDelete = async (req, res) => {
     const { id } = req.params;
-    await productService.findOneAndDelete({ id });
+    await cartService.findOneAndDelete({ id });
     return new Ok({ message: "Delete product successful !" }).send(res);
   };
 }
-module.exports = new Product();
+module.exports = new CartController();

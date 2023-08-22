@@ -1,5 +1,5 @@
 const fs = require("fs");
-const {dbPath} = require("./db_path")
+const { cartdbPath, productdbPath } = require("./db_path");
 function saveDbData(data) {
   fs.writeFileSync(dbPath, JSON.stringify(data, null, 2));
 }

@@ -1,11 +1,15 @@
 const fs = require("fs");
-const { dbPath } = require("../helpers/db_path");
+const { cartdbPath, productdbPath } = require("../helpers/db_path");
 function checkDbFile(req, res, next) {
-  if (!fs.existsSync(dbPath)) {
-    fs.writeFileSync(dbPath, JSON.stringify({ products: [] }));
+  if (!fs.existsSync(cartdbPath)) {
+    fs.writeFileSync(cartdbPath, JSON.stringify({ cart: [] }));
     console.log("Created new db.json file.");
   }
-next();
+  if (!fs.existsSync(productdbPath)) {
+    fs.writeFileSync(productdbPath, JSON.stringify({ products: [] }));
+    console.log("Created new db.json file.");
+  }
+  next();
 }
 module.exports = {
   checkDbFile,
