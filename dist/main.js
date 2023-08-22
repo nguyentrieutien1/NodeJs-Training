@@ -10,14 +10,19 @@ const app = (0, express_1.default)();
 const check_db_1 = require("./middlewares/check.db");
 const index_route_1 = __importDefault(require("./routes/index.route"));
 const dotenv_1 = __importDefault(require("dotenv"));
+const db_1 = require("./configs/db");
+require("./configs/db");
 dotenv_1.default.config();
 const PORT = parseInt(process.env.PORT) || 9000;
 // MIDDLEWARES
 app.use(check_db_1.checkDbFile);
 app.use(express_1.default.json({}));
-app.use(error_middleware_1.errorHandler);
+// CONNECT DB
+db_1.mongoInstance.connect();
 // RUN ROUTERS
 (0, index_route_1.default)(app);
+// HANDLE APP ERROR
+app.use(error_middleware_1.errorHandler);
 app.listen(PORT, () => {
     console.log(`App is running on link http://localhost:${PORT}`);
 });

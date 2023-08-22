@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.NotFound = exports.BadRequestError = void 0;
+exports.ErrorResponse = exports.NotFound = exports.BadRequestError = void 0;
 const statusCode = {
     BADREQUEST: 400,
     FORBIDDEN: 403,
@@ -18,6 +18,7 @@ class ErrorResponse extends Error {
         this.status = status;
     }
 }
+exports.ErrorResponse = ErrorResponse;
 class BadRequestError extends ErrorResponse {
     constructor(message = reasonStatusCode.BADREQUEST, status = statusCode.BADREQUEST) {
         super(message, status);

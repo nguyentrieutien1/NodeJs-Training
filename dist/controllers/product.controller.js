@@ -20,14 +20,14 @@ class ProductController {
             const products = yield product_service_1.default.findAll();
             return new success_response_1.Ok({
                 metadata: products,
-                message: "Get all product successful !",
+                message: "Get cart successful !",
             }).send(res);
         });
         this.create = (req, res) => __awaiter(this, void 0, void 0, function* () {
             const { payload } = req.body;
             const product = yield product_service_1.default.create({ payload });
             return new success_response_1.Success({
-                message: "Product has been created !",
+                message: "item has been created !",
                 metadata: product,
             }).send(res);
         });
@@ -45,14 +45,14 @@ class ProductController {
             });
             return new success_response_1.Ok({
                 metadata: product,
-                message: "Update product successful !",
+                message: "Update item successful !",
             }).send(res);
         });
         this.findOneAndDelete = (req, res) => __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
             yield product_service_1.default.findOneAndDelete({ id });
             return new success_response_1.Ok({
-                message: "Delete product successful !",
+                message: "Delete item successful !",
                 metadata: null,
             }).send(res);
         });

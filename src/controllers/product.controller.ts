@@ -8,14 +8,14 @@ class ProductController {
     const products: Item[] = await productService.findAll();
     return new Ok({
       metadata: products,
-      message: "Get all product successful !",
+      message: "Get cart successful !",
     }).send(res);
   };
   create = async (req: Request, res: Response): Promise<Success> => {
     const { payload }: { payload: Item } = req.body;
     const product: Item = await productService.create({ payload });
     return new Success({
-      message: "Product has been created !",
+      message: "item has been created !",
       metadata: product,
     }).send(res);
   };
@@ -33,14 +33,14 @@ class ProductController {
     });
     return new Ok({
       metadata: product,
-      message: "Update product successful !",
+      message: "Update item successful !",
     }).send(res);
   };
   findOneAndDelete = async (req: Request, res: Response): Promise<Ok> => {
     const { id } = req.params as unknown as { id: number };
     await productService.findOneAndDelete({ id });
     return new Ok({
-      message: "Delete product successful !",
+      message: "Delete item successful !",
       metadata: null,
     }).send(res);
   };
