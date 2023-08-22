@@ -6,7 +6,7 @@ import { checkDbFile } from "./middlewares/check.db";
 import appRouters from "./routes/index.route";
 import dotenv from "dotenv";
 dotenv.config();
-const PORT = process.env.PORT || 9000;
+const PORT: number = parseInt(process.env.PORT) || 9000;
 // MIDDLEWARES
 app.use(checkDbFile);
 app.use(express.json({}));

@@ -22,42 +22,42 @@ class Product {
             yield (0, sleep_1.sleep)(fetch_time_out_1.FETCH_TIME_OUT);
             return products;
         });
-        this.create = (payload) => __awaiter(this, void 0, void 0, function* () {
-            if (!payload.payload) {
+        this.create = ({ payload }) => __awaiter(this, void 0, void 0, function* () {
+            if (!payload) {
                 throw new error_response_1.BadRequestError("Dont't have payload");
             }
             const { products } = yield (0, get_data_db_1.getDbData)();
-            payload._id = (0, uuid_1.v4)();
+            payload.id = (0, uuid_1.v4)();
             products.push(payload);
             yield (0, sleep_1.sleep)(fetch_time_out_1.FETCH_TIME_OUT);
             (0, save_data_db_1.saveDbData)({ products });
             return payload;
         });
-        this.findOneById = (_id) => __awaiter(this, void 0, void 0, function* () {
-            if (!_id._id)
-                throw new error_response_1.BadRequestError("Missing user id");
+        this.findOneById = ({ id }) => __awaiter(this, void 0, void 0, function* () {
+            if (!id)
+                throw new error_response_1.BadRequestError("Missing product id");
             const { products } = yield (0, get_data_db_1.getDbData)();
-            const product = products.find((product) => product._id == _id);
+            const product = products.find((product) => product.id == id);
             if (!product)
                 throw new error_response_1.NotFound("Product not found !");
             yield (0, sleep_1.sleep)(fetch_time_out_1.FETCH_TIME_OUT);
             return product;
         });
-        this.findOneAndUpdate = (xxx) => __awaiter(this, void 0, void 0, function* () {
-            if (!xxx._id || !xxx.payload)
+        this.findOneAndUpdate = ({ id, payload, }) => __awaiter(this, void 0, void 0, function* () {
+            if (id || !payload)
                 throw new error_response_1.BadRequestError("Missing user id or payload");
             const { products } = yield (0, get_data_db_1.getDbData)();
-            const index = products.findIndex((product) => product._id === xxx._id);
-            products[index] = Object.assign(Object.assign({}, products[index]), xxx.payload);
+            const index = products.findIndex((product) => product.id === id);
+            products[index] = Object.assign(Object.assign({}, products[index]), payload);
             (0, save_data_db_1.saveDbData)({ products });
             yield (0, sleep_1.sleep)(fetch_time_out_1.FETCH_TIME_OUT);
             return products[index];
         });
-        this.findOneAndDelete = (id) => __awaiter(this, void 0, void 0, function* () {
-            if (!id._id)
+        this.findOneAndDelete = ({ id }) => __awaiter(this, void 0, void 0, function* () {
+            if (!id)
                 throw new error_response_1.BadRequestError("Missing user id or payload");
             const { products } = yield (0, get_data_db_1.getDbData)();
-            const index = products.findIndex((product) => product._id === id._id);
+            const index = products.findIndex((product) => product.id === id);
             if (index === -1)
                 throw new error_response_1.NotFound("Product not found !");
             products.splice(index, 1);

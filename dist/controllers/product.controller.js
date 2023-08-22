@@ -33,14 +33,14 @@ class ProductController {
         });
         this.findOneById = (req, res) => __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            const product = yield product_service_1.default.findOneById({ _id: id });
+            const product = yield product_service_1.default.findOneById({ id });
             return new success_response_1.Ok({ metadata: product, message: null }).send(res);
         });
         this.findOneAndUpdate = (req, res) => __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
             const { payload } = req.body;
             const product = yield product_service_1.default.findOneAndUpdate({
-                _id: id,
+                id: id,
                 payload,
             });
             return new success_response_1.Ok({
@@ -50,7 +50,7 @@ class ProductController {
         });
         this.findOneAndDelete = (req, res) => __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            yield product_service_1.default.findOneAndDelete({ _id: id });
+            yield product_service_1.default.findOneAndDelete({ id });
             return new success_response_1.Ok({
                 message: "Delete product successful !",
                 metadata: null,

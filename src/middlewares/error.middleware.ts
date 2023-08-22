@@ -1,8 +1,13 @@
-function errorHandler(err, req, res, next) {
-  console.log(err);
+import { ErrorRequestHandler, NextFunction, Request, Response } from "express";
 
-  let statusCode = 500;
-  let message = "Internal Server Error";
+function errorHandler(
+  err: ErrorRequestHandler,
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  let statusCode: number = 500;
+  let message: string = "Internal Server Error";
   res.status(statusCode).json({ message, statusCode });
 }
 export { errorHandler };

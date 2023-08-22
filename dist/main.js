@@ -11,7 +11,7 @@ const check_db_1 = require("./middlewares/check.db");
 const index_route_1 = __importDefault(require("./routes/index.route"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
-const PORT = process.env.PORT || 9000;
+const PORT = parseInt(process.env.PORT) || 9000;
 // MIDDLEWARES
 app.use(check_db_1.checkDbFile);
 app.use(express_1.default.json({}));
