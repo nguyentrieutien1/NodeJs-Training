@@ -1,8 +1,10 @@
+const { ErrorResponse } = require("../core/error.response");
+
 function errorHandler(err, req, res, next) {
    let statusCode = 500; 
    let message = "Internal Server Error"; 
 
-   if (err instanceof Error) {
+   if (err instanceof ErrorResponse) {
      message = err.message || message;
      statusCode = err.status || statusCode;
    }

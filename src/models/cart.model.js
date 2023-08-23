@@ -39,6 +39,7 @@ class CartModel {
     const index = cart.findIndex((cartItem) => cartItem.id == id);
     console.log(index);
     cart[index].quantity = payload.quantity;
+    await sleep(FETCH_TIME_OUT);
     saveCartDbData({ cart });
     return cart[index];
   };

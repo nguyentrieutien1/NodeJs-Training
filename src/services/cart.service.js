@@ -9,22 +9,20 @@ const cartModel = require("../models/cart.model");
 class CartService {
   findAll = async () => {
     const { cart } = await CartModel.findAll();
-    await sleep(FETCH_TIME_OUT);
     return cart;
   };
   create = async ({ payload }) => {
     if (!payload) {
       throw new BadRequestError("Dont't have payload");
     }
-    
-    const cartItem = new CartModel(payload)
-    await cartItem.save()
+
+    const cartItem = new CartModel(payload);
+    await cartItem.save();
     return payload;
   };
   findOneById = async ({ id }) => {
     if (!id) throw new BadRequestError("Missing cart item id");
-    const cart = await CartModel.findOneById({id})
-    await sleep(FETCH_TIME_OUT);
+    const cart = await CartModel.findOneById({ id });
     return cart;
   };
   findOneAndUpdate = async ({ id, payload }) => {

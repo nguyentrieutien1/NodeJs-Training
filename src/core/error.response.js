@@ -34,4 +34,5 @@ class NotFound extends ErrorResponse {
 module.exports = {
   BadRequestError,
   NotFound,
+  ErrorResponse,
 };
