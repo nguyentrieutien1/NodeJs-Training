@@ -6,6 +6,8 @@ const appRouters = require("./routes/index.route")
 const cors = require("cors");
 const PORT = process.env.PORT || 9000;
 require("dotenv").config();
+
+
 // MIDDLEWARES
 app.use(checkDbFile);
 app.use(express.json({}));
