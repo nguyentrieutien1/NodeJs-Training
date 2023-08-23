@@ -3,7 +3,6 @@ const cartService = require("../services/cart.service");
 class CartController {
   findAll = async (req, res) => {
     const products = await cartService.findAll();
-    console.log(products);
     return new Ok({
       metadata: products,
       message: "Get all product successful !",

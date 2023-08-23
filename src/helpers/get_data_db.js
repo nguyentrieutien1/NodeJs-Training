@@ -6,7 +6,6 @@ async function getCartDbData() {
 }
 async function getProductDbData() {
   const jsonData = fs.readFileSync(productdbPath, "utf-8");
-  console.log(productdbPath);
 
   return await JSON.parse(jsonData);
 }

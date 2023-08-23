@@ -37,7 +37,6 @@ class CartModel {
   static findOneAndUpdate = async ({ id, payload }) => {
     const { cart } = await getCartDbData();
     const index = cart.findIndex((cartItem) => cartItem.id == id);
-    console.log(index);
     cart[index].quantity = payload.quantity;
     await sleep(FETCH_TIME_OUT);
     saveCartDbData({ cart });
@@ -46,7 +45,6 @@ class CartModel {
 
   static findOneAndDelete = async ({ id }) => {
     const { cart } = await getCartDbData();
-    console.log(id);
     const index = cart.findIndex((product) => product.id == id);
     if (index === -1) throw new NotFound("cart item not found !");
     cart.splice(index, 1);
