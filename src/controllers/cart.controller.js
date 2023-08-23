@@ -10,7 +10,7 @@ class CartController {
     }).send(res);
   };
   create = async (req, res) => {
-    const { payload } = req.body;
+    const payload = req.body;
     const product = await cartService.create({ payload });
     return new Success({
       message: "Product has been created !",
@@ -20,12 +20,11 @@ class CartController {
   findOneById = async (req, res) => {
     const { id } = req.params;
     const product = await cartService.findOneById({ id });
-    console.log(product);
     return new Ok({ metadata: product }).send(res);
   };
   findOneAndUpdate = async (req, res) => {
     const { id } = req.params;
-    const { payload } = req.body;
+    const payload = req.body;
     const product = await cartService.findOneAndUpdate({
       id,
       payload,

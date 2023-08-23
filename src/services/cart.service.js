@@ -5,6 +5,7 @@ const { BadRequestError, NotFound } = require("../core/error.response");
 const { saveDbData } = require("../helpers/save_data_db");
 const { v4: uuidv4 } = require("uuid");
 const { CartModel } = require("../models/cart.model");
+const cartModel = require("../models/cart.model");
 class CartService {
   findAll = async () => {
     const { cart } = await CartModel.findAll();
@@ -15,39 +16,27 @@ class CartService {
     if (!payload) {
       throw new BadRequestError("Dont't have payload");
     }
-    const { cart } = await getDbData();
-    payload._id = uuidv4();
-    cart.push(payload);
-    await sleep(FETCH_TIME_OUT);
-    saveDbData({ cart });
+    
+    const cartItem = new CartModel(payload)
+    await cartItem.save()
     return payload;
   };
   findOneById = async ({ id }) => {
     if (!id) throw new BadRequestError("Missing cart item id");
-    const { cart } = await getDbData();
-    const product = cart.find((product) => product.id == id);
-    if (!product) throw new NotFound("cart item not found !");
+    const cart = await CartModel.findOneById({id})
     await sleep(FETCH_TIME_OUT);
-    return product;
+    return cart;
   };
   findOneAndUpdate = async ({ id, payload }) => {
     if (!id || !payload)
       throw new BadRequestError("Missing cart item or payload");
-    const { cart } = await getDbData();
-    const index = cart.findIndex((product) => product.id == id);
-    cart[index] = { ...cart[index], ...payload };
-    saveDbData({ cart });
+    const cart = await CartModel.findOneAndUpdate({ id, payload })
     sleep(FETCH_TIME_OUT);
-    return cart[index];
+    return cart;
   };
   findOneAndDelete = async ({ id }) => {
     if (!id) throw new BadRequestError("Missing cart item  id or payload");
-    const { cart } = await getDbData();
-    const index = cart.findIndex((product) => product.id == id);
-    if (index === -1) throw new NotFound("cart item  not found !");
-    cart.splice(index, 1);
-    await sleep(FETCH_TIME_OUT);
-    saveDbData({ cart });
+    await CartModel.findOneAndDelete(id)
     return 1;
   };
 }

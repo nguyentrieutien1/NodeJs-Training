@@ -1,7 +1,7 @@
 const { FETCH_TIME_OUT } = require("../contains/fetch_time_out");
 const { BadRequestError, NotFound } = require("../core/error.response");
 const { getCartDbData } = require("../helpers/get_data_db");
-const { saveDbData } = require("../helpers/save_data_db");
+const {  saveCartDbData } = require("../helpers/save_data_db");
 const { sleep } = require("../helpers/sleep");
 
 class CartModel {
@@ -22,29 +22,23 @@ class CartModel {
     const { cart } = await getCartDbData();
     cart.push(this);
     await sleep(FETCH_TIME_OUT);
-    saveDbData({ cart });
+    saveCartDbData({ cart });
     return this;
   };
 
   static findOneById = async ({ id }) => {
-    if (!id) throw new BadRequestError("Missing cart item id");
     const { cart } = await getCartDbData();
-    const product = cart.find((product) => product.id == id);
-    if (!product) throw new NotFound("Cart item not found !");
+    const cartItem = cart.find((cartItem) => cartItem.id == id);
+    if (!cartItem) throw new NotFound("Cart item not found !");
     await sleep(FETCH_TIME_OUT);
-    return product;
+    return cartItem;
   };
 
-  static findOneAndUpdate = async ({ id, quantity }) => {
-    if (!id || !quantity)
-      throw new BadRequestError("Missing cart item id or payload");
+  static findOneAndUpdate = async ({ id, payload }) => {
     const { cart } = await getCartDbData();
-    console.log(quantity, id);
-
-    const index = cart.findIndex((product) => product.id === id);
-
-    cart[index] = { ...cart[index], ...{ quantity } };
-    saveDbData({ cart });
+    const index = cart.findIndex((cartItem) => cartItem.id == id);
+    cart[index].quantity = payload.quantity
+    saveCartDbData({ cart });
     await sleep(FETCH_TIME_OUT);
     return cart[index];
   };
