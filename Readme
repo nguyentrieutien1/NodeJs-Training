@@ -1,0 +1,17 @@
+# Instruct
+
+Here is a guide to run the project using ExpressJs and Mongodb
+
+## Step 1: Run app
+
+1. Open terminal or command prompt.
+2.  running the following command: npm run start
+
+## Step 2: Write product data into products collection
+
+1. Open terminal or command prompt.
+2.  running the following command: npm run seed
+
+## Complete
+
+After completing the above steps, your project will be running with ExpressJs and Mongodb
