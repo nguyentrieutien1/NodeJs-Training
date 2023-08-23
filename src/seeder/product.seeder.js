@@ -5,6 +5,10 @@ require("dotenv").config();
 // hdahsdsadasdasdasd
 (async () => {
   await mongoInstance.connect();
+  const getAllProduct = await Product.find();
+  if (getAllProduct.length > 0) {
+    return void 0;
+  }
   for (let i = 0; i < products.length; i++) {
     await Product.create(products[i]);
   }
