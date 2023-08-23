@@ -37,20 +37,20 @@ class CartModel {
   static findOneAndUpdate = async ({ id, payload }) => {
     const { cart } = await getCartDbData();
     const index = cart.findIndex((cartItem) => cartItem.id == id);
-    cart[index].quantity = payload.quantity
+    console.log(index);
+    cart[index].quantity = payload.quantity;
     saveCartDbData({ cart });
-    await sleep(FETCH_TIME_OUT);
     return cart[index];
   };
 
   static findOneAndDelete = async ({ id }) => {
-    if (!id) throw new BadRequestError("Missing cart item or payload");
     const { cart } = await getCartDbData();
-    const index = cart.findIndex((product) => product.id === id);
+    console.log(id);
+    const index = cart.findIndex((product) => product.id == id);
     if (index === -1) throw new NotFound("cart item not found !");
     cart.splice(index, 1);
     await sleep(FETCH_TIME_OUT);
-    saveDbData({ cart });
+    saveCartDbData({ cart });
     return 1;
   };
 }

@@ -4,14 +4,19 @@ const app = express();
 const { checkDbFile } = require("./middlewares/check.db")
 const appRouters = require("./routes/index.route")
 const cors = require("cors");
-require("dotenv").config();
 const PORT = process.env.PORT || 9000;
+require("dotenv").config();
 // MIDDLEWARES
 app.use(checkDbFile);
 app.use(express.json({}));
 app.use(cors());
-// RUN ROUTERS 
+
+
+// RUN APP ROUTERS 
 appRouters(app)
+
+
+// CATCH APP ERROR
 app.use(errorHandler);
 
 app.listen(PORT, () => {

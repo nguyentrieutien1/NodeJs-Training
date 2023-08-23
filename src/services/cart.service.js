@@ -30,13 +30,12 @@ class CartService {
   findOneAndUpdate = async ({ id, payload }) => {
     if (!id || !payload)
       throw new BadRequestError("Missing cart item or payload");
-    const cart = await CartModel.findOneAndUpdate({ id, payload })
-    sleep(FETCH_TIME_OUT);
+    const cart = await CartModel.findOneAndUpdate({ id, payload });
     return cart;
   };
   findOneAndDelete = async ({ id }) => {
     if (!id) throw new BadRequestError("Missing cart item  id or payload");
-    await CartModel.findOneAndDelete(id)
+    await CartModel.findOneAndDelete({ id });
     return 1;
   };
 }
