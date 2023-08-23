@@ -4,7 +4,8 @@
   "description": "Tony-Tech Training Fullstack",
   "main": "src/main.js",
   "scripts": {
-    "start": "node --watch src/main.js"
+    "start": "node --watch src/main.js",
+    "seed": "node src/seeder/product.seeder.js"
   },
   "author": "nguyentrieutien",
   "license": "ISC",

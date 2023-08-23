@@ -1,25 +1,27 @@
-const { getProductDbData } = require( "../helpers/get_data_db");
-
-class ProductModel {
-   
-    constructor(
-      id,
-      image,
-      product_name,
-      product_title,
-      product_price
-    ) {
-      this.id = id;
-      this.image = image;
-      this.product_name = product_name;
-      this.product_title = product_title;
-      this.product_price = product_price;
-    }
-    static findAll = async () => {
-        const {products} = await getProductDbData();
-        return products;
-    }
-  }
-  module.exports = {
-    ProductModel
-  }
+const mongoose = require("mongoose");
+const productSchema = new mongoose.Schema({
+  id: {
+    type: Number,
+    unique: true,
+    index: true,
+  },
+  image: {
+    type: String,
+    required: true,
+  },
+  product_name: {
+    type: String,
+    required: true,
+  },
+  product_title: {
+    type: String,
+    required: true,
+  },
+  product_price: {
+    type: String,
+    required: true,
+  },
+});
+//Export the model
+const Product = mongoose.model("Product", productSchema);
+module.exports = { Product };
