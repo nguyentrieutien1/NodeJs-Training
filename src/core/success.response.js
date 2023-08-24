@@ -9,11 +9,11 @@ const reasonStatusCode = {
 class SuccessResponse {
   constructor({
     message,
-    data = {},
+    metadata = {},
     status = statusCode.OK,
     reasonStatus = reasonStatusCode.OK,
   }) {
-    this.data = data;
+    this.metadata = metadata;
     this.message = message ? message : "OK";
     this.status = status;
     this.reasonStatus = reasonStatus;
@@ -23,18 +23,18 @@ class SuccessResponse {
   };
 }
 class Ok extends SuccessResponse {
-  constructor({ data, message }) {
-    super({ message, data });
+  constructor({ metadata, message }) {
+    super({ message, metadata });
   }
 }
 class Success extends SuccessResponse {
   constructor({
     message,
-    data,
+    metadata,
     status = statusCode.CREATED,
     reasonStatus = reasonStatusCode.CREATED,
   }) {
-    super({ message, status, reasonStatus, data });
+    super({ message, status, reasonStatus, metadata });
   }
 }
 module.exports = {
