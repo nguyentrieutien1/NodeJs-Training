@@ -1,13 +1,13 @@
 const statusCode = {
-  FORBIDDEN: 403,
-  CONFLICT: 409,
   BADREQUEST: 400,
+  FORBIDDEN: 403,
   NOTFOUND: 404,
+  CONFLICT: 409,
 };
 const reasonStatusCode = {
-  FORBIDDEN: "Forbidden",
   BADREQUEST: "Bad Request",
-  NOTFOUND: "Not found !"
+  FORBIDDEN: "Forbidden",
+  NOTFOUND: "Not found !",
 };
 class ErrorResponse extends Error {
   constructor(message, errors, status) {
@@ -39,3 +39,4 @@ module.exports = {
   NotFound,
   ErrorResponse,
 };
+

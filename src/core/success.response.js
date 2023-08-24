@@ -1,11 +1,11 @@
 const statusCode = {
-     OK: 200,
-     CREATED:201
-}
+  OK: 200,
+  CREATED: 201,
+};
 const reasonStatusCode = {
-     OK: "OK !",
-     CREATED: "Created !"
-}
+  OK: "OK !",
+  CREATED: "Created !",
+};
 class SuccessResponse {
   constructor({
     message,
@@ -38,6 +38,6 @@ class Success extends SuccessResponse {
   }
 }
 module.exports = {
-     Ok, 
-     Success
-}
+  Ok,
+  Success,
+};
