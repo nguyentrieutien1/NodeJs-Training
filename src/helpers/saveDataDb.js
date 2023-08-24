@@ -8,5 +8,5 @@ function saveProductDbData(data) {
 }
 module.exports = {
   saveCartDbData,
-  saveProductDbData
+  saveProductDbData,
 };

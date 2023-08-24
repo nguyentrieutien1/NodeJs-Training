@@ -2,9 +2,7 @@ const mongoose = require("mongoose");
 class ConnectDatabase {
   connect = async () => {
     try {
-      await mongoose.connect(process.env.MONGODB_CONNECT_STRING_LOCAL, {
-        connectTimeoutMS: 30000,
-      });
+      await mongoose.connect(process.env.MONGODB_CONNECT_STRING_LOCAL);
       console.log("Connect successful to mongodb");
     } catch (error) {
       console.error("error connect:", error.message);
@@ -12,5 +10,5 @@ class ConnectDatabase {
     }
   };
 }
-const mongoInstance = new ConnectDatabase();
-module.exports = { mongoInstance };
+const mongoDbInstance = new ConnectDatabase();
+module.exports = { mongoDbInstance };

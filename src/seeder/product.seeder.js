@@ -1,10 +1,10 @@
-const { mongoInstance } = require("../configs/db");
+const { mongoDbInstance } = require("../configs/db");
 const { products } = require("../database/products.json");
 const { Product } = require("../models/product.model");
 require("dotenv").config();
 // hdahsdsadasdasdasd
 (async () => {
-  await mongoInstance.connect();
+  await mongoDbInstance.connect();
   const getAllProduct = await Product.find();
   if (getAllProduct.length > 0) {
     return void 0;
