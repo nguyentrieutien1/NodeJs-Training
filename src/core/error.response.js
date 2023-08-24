@@ -10,28 +10,28 @@ const reasonStatusCode = {
   NOTFOUND: "Not found !"
 };
 class ErrorResponse extends Error {
-  constructor(message, errorData, status) {
+  constructor(message, errors, status) {
     super(message);
     this.status = status;
-    this.errorData = errorData;
+    this.errors = errors;
   }
 }
 class BadRequestError extends ErrorResponse {
   constructor(
     message = reasonStatusCode.BADREQUEST,
-    errorData = {},
+    errors = {},
     status = statusCode.BADREQUEST
   ) {
-    super(message, errorData, status);
+    super(message, errors, status);
   }
 }
 class NotFound extends ErrorResponse {
   constructor(
     message = reasonStatusCode.NOTFOUND,
-    errorData = {},
+    errors = {},
     status = statusCode.NOTFOUND
   ) {
-    super(message, errorData, status);
+    super(message, errors, status);
   }
 }
 module.exports = {
