@@ -1,8 +1,8 @@
-const { FETCH_TIME_OUT } = require("../contains/fetch_time_out");
-const { getDbData } = require("../helpers/get_data_db");
+const { FETCH_TIME_OUT } = require("../../contains/fetch_time_out");
+const { getDbData } = require("../../helpers/get_data_db");
 const { sleep } = require("../../helpers/sleep");
 const { BadRequestError, NotFound } = require("../../core/error.response");
-const { Cart } = require("./../models/cart.model");
+const { Cart } = require("./cart.model");
 class CartService {
   findAll = async () => {
     const cart = await Cart.find();
@@ -23,12 +23,13 @@ class CartService {
   findOneAndUpdate = async ({ id, payload }) => {
     if (!id || !payload)
       throw new BadRequestError("Missing cart item or payload");
-    const cartItem = await Cart.findOneAndUpdate({ $where: id }, payload);
+    const cartItem = await Cart.findOneAndUpdate({ id }, payload);
     return cartItem;
   };
+  //
   findOneAndDelete = async ({ id }) => {
     if (!id) throw new BadRequestError("Missing cart item  id or payload");
-    await Cart.findOneAndDelete({ $where: id });
+    await Cart.findOneAndDelete({ id });
     return 1;
   };
 }

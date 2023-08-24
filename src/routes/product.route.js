@@ -1,5 +1,5 @@
-const { catchErrorHandler } = require("../middlewares/error.catch.middleware");
 const router = require("express").Router();
-const productController = require("../controllers/product.controller");
-router.get("/products", catchErrorHandler(productController.findAll));
+const { checkAuth } = require("../middlewares/auth.middleware");
+const productController = require("../modules/product/product.controller");
+router.get("/", checkAuth, productController.findAll);
 module.exports = router;

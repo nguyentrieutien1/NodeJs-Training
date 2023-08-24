@@ -1,5 +1,5 @@
-const { Ok, Success } = require("../core/success.response");
-const cartService = require("../services/cart.service");
+const { Ok, Success } = require("../../core/success.response");
+const cartService = require("./cart.service");
 class CartController {
   findAll = async (req, res) => {
     const products = await cartService.findAll();

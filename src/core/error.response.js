@@ -5,9 +5,10 @@ const statusCode = {
   CONFLICT: 409,
 };
 const reasonStatusCode = {
-  BADREQUEST: "Bad Request",
-  FORBIDDEN: "Forbidden",
+  BADREQUEST: "Bad Request !",
+  FORBIDDEN: "Forbidden !",
   NOTFOUND: "Not found !",
+  CONFLICT: "Conflict !",
 };
 class ErrorResponse extends Error {
   constructor(message, errors, status) {
@@ -34,9 +35,19 @@ class NotFound extends ErrorResponse {
     super(message, errors, status);
   }
 }
+class Conflict extends ErrorResponse {
+  constructor(
+    message = reasonStatusCode.CONFLICT,
+    errors = {},
+    status = statusCode.CONFLICT
+  ) {
+    super(message, errors, status);
+  }
+}
 module.exports = {
   BadRequestError,
   NotFound,
   ErrorResponse,
+  Conflict,
 };
 
