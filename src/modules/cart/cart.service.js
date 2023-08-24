@@ -17,7 +17,7 @@ class CartService {
   };
   findOneById = async ({ id }) => {
     if (!id) throw new BadRequestError("Missing cart item id !", { id });
-    const cartItem = await Cart.findOne({ $where: id });
+    const cartItem = await Cart.findOne({ id: id });
     if (!cartItem) throw new NotFound("Cart item not found !", { id });
     return cartItem;
   };
@@ -27,13 +27,14 @@ class CartService {
         id,
         payload,
       });
-    const cartItem = await Cart.findOneAndUpdate({ $where: id }, payload);
+    const cartItem = await Cart.findOneAndUpdate({ id }, payload);
+    console.log(cartItem);
     return cartItem;
   };
   findOneAndDelete = async ({ id }) => {
     if (!id)
       throw new BadRequestError("Missing cart item  id or payload !", { id });
-    await Cart.findOneAndDelete({ $where: id });
+    await Cart.findOneAndDelete({ id: id });
     return 1;
   };
 }

@@ -37,6 +37,7 @@ class CartController {
   findOneAndUpdate = async (req, res) => {
     try {
       const { id } = req.params;
+      console.log(id);
       const payload = req.body;
       const product = await cartService.findOneAndUpdate({
         id,
