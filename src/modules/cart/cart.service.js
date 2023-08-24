@@ -1,8 +1,8 @@
-const { FETCH_TIME_OUT } = require("../contains/fetchTimeout");
-const { getDbData } = require("../helpers/getDataDb");
-const { sleep } = require("../helpers/sleep");
-const { BadRequestError, NotFound } = require("../core/error.response");
-const { Cart } = require("./../models/cart.model");
+const { FETCH_TIME_OUT } = require("../../contains/fetchTimeout");
+const { getDbData } = require("../../helpers/getDataDb");
+const { sleep } = require("../../helpers/sleep");
+const { BadRequestError, NotFound } = require("../../core/error.response");
+const { Cart } = require("./cart.model");
 class CartService {
   findAll = async () => {
     const cart = await Cart.find();

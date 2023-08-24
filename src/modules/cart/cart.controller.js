@@ -1,6 +1,6 @@
-const { Ok, Success } = require("../core/success.response");
-const { errorHandler } = require("../helpers/handleError");
-const cartService = require("../services/cart.service");
+const { Ok, Success } = require("../../core/success.response");
+const { errorHandler } = require("../../helpers/handleError");
+const cartService = require("./cart.service");
 class CartController {
   findAll = async (req, res) => {
     try {

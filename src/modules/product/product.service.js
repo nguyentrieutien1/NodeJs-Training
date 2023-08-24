@@ -1,4 +1,4 @@
-const { ProductModel, Product } = require("../models/product.model");
+const { ProductModel, Product } = require("./product.model");
 
 class ProductService {
   findAll = async () => {

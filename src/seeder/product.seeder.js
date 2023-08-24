@@ -1,6 +1,6 @@
 const { mongoDbInstance } = require("../configs/db");
 const { products } = require("../database/products.json");
-const { Product } = require("../models/product.model");
+const { Product } = require("../modules/product/product.model");
 require("dotenv").config();
 // hdahsdsadasdasdasd
 (async () => {

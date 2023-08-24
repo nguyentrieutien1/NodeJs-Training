@@ -1,5 +1,5 @@
-const { Ok } = require("../core/success.response");
-const productService = require("../services/product.service");
+const { Ok } = require("../../core/success.response");
+const productService = require("./product.service");
 class ProductController {
   findAll = async (req, res) => {
     const products = await productService.findAll();
@@ -8,6 +8,5 @@ class ProductController {
       message: "Get all product successful !",
     }).send(res);
   };
- 
 }
 module.exports = new ProductController();
