@@ -26,6 +26,7 @@ class CartService {
     const cartItem = await Cart.findOneAndUpdate({ id }, payload);
     return cartItem;
   };
+  //
   findOneAndDelete = async ({ id }) => {
     if (!id) throw new BadRequestError("Missing cart item  id or payload");
     await Cart.findOneAndDelete({ id });
