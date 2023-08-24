@@ -4,8 +4,12 @@ const app = express();
 const { checkDbFile } = require("./middlewares/check.db")
 const appRouters = require("./routes/index.route")
 const cors = require("cors");
+const { mongoDbInstance } = require("./configs/db");
 const PORT = process.env.PORT || 9000;
 require("dotenv").config();
+
+// CONNECT DB
+mongoDbInstance.connect();
 
 
 // MIDDLEWARES

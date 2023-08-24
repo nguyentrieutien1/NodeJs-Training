@@ -8,6 +8,5 @@ class ProductController {
       message: "Get all product successful !",
     }).send(res);
   };
- 
 }
 module.exports = new ProductController();

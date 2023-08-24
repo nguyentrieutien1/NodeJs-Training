@@ -4,7 +4,7 @@ class ProductController {
   findAll = async (req, res) => {
     const products = await productService.findAll();
     return new Ok({
-      metadata: products,
+      data: products,
       message: "Get all product successful !",
     }).send(res);
   };

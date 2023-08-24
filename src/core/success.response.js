@@ -9,7 +9,7 @@ const reasonStatusCode = {
 class SuccessResponse {
   constructor({
     message,
-    data = {},
+    data = [],
     status = statusCode.OK,
     reasonStatus = reasonStatusCode.OK,
   }) {

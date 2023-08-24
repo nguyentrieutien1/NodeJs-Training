@@ -5,7 +5,7 @@ require("dotenv").config();
 // hdahsdsadasdasdasd
 (async () => {
   await mongoDbInstance.connect();
-  const getAllProduct = await Produc
+  const getAllProduct = await Product.find();
   if (getAllProduct.length > 0) {
     return void 0;
   }
