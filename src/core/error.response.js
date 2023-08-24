@@ -7,28 +7,31 @@ const statusCode = {
 const reasonStatusCode = {
   FORBIDDEN: "Forbidden",
   BADREQUEST: "Bad Request",
-  NOTFOUND: "Not found !"
+  NOTFOUND: "Not found !",
 };
 class ErrorResponse extends Error {
-  constructor(message, status) {
+  constructor(message, errors, status) {
     super(message);
     this.status = status;
+    this.errors = errors;
   }
 }
 class BadRequestError extends ErrorResponse {
   constructor(
     message = reasonStatusCode.BADREQUEST,
+    errors = {},
     status = statusCode.BADREQUEST
   ) {
-    super(message, status);
+    super(message, errors, status);
   }
 }
 class NotFound extends ErrorResponse {
   constructor(
     message = reasonStatusCode.NOTFOUND,
+    errors = {},
     status = statusCode.NOTFOUND
   ) {
-    super(message, status);
+    super(message, errors, status);
   }
 }
 module.exports = {

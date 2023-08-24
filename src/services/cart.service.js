@@ -10,24 +10,29 @@ class CartService {
   };
   create = async ({ payload }) => {
     if (!payload) {
-      throw new BadRequestError("Dont't have payload");
+      throw new BadRequestError("Dont't have payload !", { payload });
     }
     const cartItem = await Cart.create(payload);
     return cartItem;
   };
   findOneById = async ({ id }) => {
-    if (!id) throw new BadRequestError("Missing cart item id");
+    if (!id) throw new BadRequestError("Missing cart item id !", { id });
     const cartItem = await Cart.findById(id);
+    if (!cartItem) throw new NotFound("Cart item not found !", { id });
     return cartItem;
   };
   findOneAndUpdate = async ({ id, payload }) => {
     if (!id || !payload)
-      throw new BadRequestError("Missing cart item or payload");
+      throw new BadRequestError("Missing cart item or payload !", {
+        id,
+        payload,
+      });
     const cartItem = await Cart.findOneAndUpdate({ $where: id }, payload);
     return cartItem;
   };
   findOneAndDelete = async ({ id }) => {
-    if (!id) throw new BadRequestError("Missing cart item  id or payload");
+    if (!id)
+      throw new BadRequestError("Missing cart item  id or payload !", { id });
     await Cart.findOneAndDelete({ $where: id });
     return 1;
   };
