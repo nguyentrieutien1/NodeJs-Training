@@ -2,6 +2,10 @@
   "cart": [
     {
       "id": 1,
+      "quantity": 3
+    },
+    {
+      "id": 5,
       "quantity": 2
     }
   ]

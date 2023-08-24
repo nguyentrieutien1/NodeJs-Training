@@ -17,7 +17,7 @@ class CartModel {
 
   save = async () => {
     if (!this.id || !this.quantity) {
-      throw new BadRequestError("Dont't have payload");
+      throw new BadRequestError("Dont't have payload", this);
     }
     const { cart } = await getCartDbData();
     cart.push(this);
@@ -29,7 +29,7 @@ class CartModel {
   static findOneById = async ({ id }) => {
     const { cart } = await getCartDbData();
     const cartItem = cart.find((cartItem) => cartItem.id == id);
-    if (!cartItem) throw new NotFound("Cart item not found !");
+    if (!cartItem) throw new NotFound("Cart item not found !", {id});
     await sleep(FETCH_TIME_OUT);
     return cartItem;
   };
@@ -46,7 +46,7 @@ class CartModel {
   static findOneAndDelete = async ({ id }) => {
     const { cart } = await getCartDbData();
     const index = cart.findIndex((product) => product.id == id);
-    if (index === -1) throw new NotFound("cart item not found !");
+    if (index === -1) throw new NotFound("cart item not found !", { id });
     cart.splice(index, 1);
     await sleep(FETCH_TIME_OUT);
     saveCartDbData({ cart });
