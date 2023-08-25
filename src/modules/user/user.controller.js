@@ -11,7 +11,6 @@ class UserController {
         message: "User has been created !",
       }).send(res);
     } catch (error) {
-      console.log(error);
       errorHandler(error, res);
     }
   };
@@ -24,7 +23,6 @@ class UserController {
         message: "Login successful !",
       }).send(res);
     } catch (error) {
-      console.log(error);
       errorHandler(error, res);
     }
   };

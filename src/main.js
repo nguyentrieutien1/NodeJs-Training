@@ -5,8 +5,8 @@ const { checkDbFile } = require("./middlewares/check.db")
 const appRouters = require("./routes/index.route")
 const cors = require("cors");
 const { mongoDbInstance } = require("./configs/db");
-const PORT = process.env.PORT || 9000;
 require("dotenv").config();
+const PORT = process.env.PORT || 9000;
 
 // CONNECT DB
 mongoDbInstance.connect();

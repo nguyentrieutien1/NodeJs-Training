@@ -1,6 +1,7 @@
 const { ErrorResponse } = require("../core/error.response");
 
 function errorHandler(err, res) {
+  console.log(err);
   let message = "Server is wrong, please access later !";
   let statusCode = 500;
   let errors = {};
@@ -9,7 +10,6 @@ function errorHandler(err, res) {
     statusCode = err.status || statusCode;
     errors = err.errors || errors;
   }
-  console.log(err);
   res.status(statusCode).json({ message, statusCode, errors });
 }
 module.exports = {

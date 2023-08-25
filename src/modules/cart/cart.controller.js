@@ -1,5 +1,6 @@
 const { Ok, Success } = require("../../core/success.response");
 const cartService = require("./cart.service");
+const { errorHandler } = require("../../helpers/handleError");
 class CartController {
   findAll = async (req, res) => {
     const products = await cartService.findAll();
@@ -9,16 +10,21 @@ class CartController {
     }).send(res);
   };
   create = async (req, res) => {
-    const payload = req.body;
-    const product = await cartService.create({ payload });
-    return new Success({
-      message: "Product has been created !",
-      data: product,
-    }).send(res);
+    try {
+      const payload = req.body;
+      const { _id } = req.user;
+      const product = await cartService.create({ payload, userId: _id });
+      return new Success({
+        message: "Cart item has been created !",
+        data: product,
+      }).send(res);
+    } catch (error) {
+      errorHandler(error, res);
+    }
   };
   findOneById = async (req, res) => {
-    const { id } = req.params;
-    const product = await cartService.findOneById({ id });
+    const { _id } = req.user;
+    const product = await cartService.findOneById({ userId: _id });
     return new Ok({ data: product }).send(res);
   };
   findOneAndUpdate = async (req, res) => {

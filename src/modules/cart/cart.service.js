@@ -1,6 +1,4 @@
-const { FETCH_TIME_OUT } = require("../../contains/fetch_time_out");
-const { getDbData } = require("../../helpers/get_data_db");
-const { sleep } = require("../../helpers/sleep");
+const { CartProduct } = require("../CartProduct/cartProduct.model");
 const { BadRequestError, NotFound } = require("../../core/error.response");
 const { Cart } = require("./cart.model");
 class CartService {
@@ -8,17 +6,32 @@ class CartService {
     const cart = await Cart.find();
     return cart;
   };
-  create = async ({ payload }) => {
+  create = async ({ payload, userId }) => {
     if (!payload) {
       throw new BadRequestError("Dont't have payload");
     }
-    const cartItem = await Cart.create(payload);
-    return cartItem;
+    const findCartUser = await Cart.findOne({ user: userId });
+    if (!findCartUser) {
+      const cartUser = new Cart({ user: userId });
+      await cartUser.save();
+    }
+    const cartProduct = await CartProduct.create({
+      cart: !findCartUser ? cartUser?._id : findCartUser?._id,
+      product: payload?.id,
+      quantity: payload?.quantity,
+    });
+    return cartProduct;
   };
-  findOneById = async ({ id }) => {
-    if (!id) throw new BadRequestError("Missing cart item id");
-    const cartItem = await Cart.findById(id);
-    return cartItem;
+  findOneById = async ({ userId }) => {
+    if (!userId) throw new BadRequestError("Missing user id");
+    const cartUser = await Cart.findOne({ user: userId });
+    if (!cartUser) {
+      return [];
+    }
+    const order = await CartProduct.find({ cart: cartUser._id }).populate({
+      path: "product",
+    });
+    return order;
   };
   findOneAndUpdate = async ({ id, payload }) => {
     if (!id || !payload)
@@ -27,10 +40,10 @@ class CartService {
     return cartItem;
   };
   //
-  findOneAndDelete = async ({ id }) => {
-    if (!id) throw new BadRequestError("Missing cart item  id or payload");
-    await Cart.findOneAndDelete({ id });
-    return 1;
-  };
+  // findOneAndDelete = async ({ id }) => {
+  //   if (!id) throw new BadRequestError("Missing cart item  id or payload");
+  //   await Cart.findOneAndDelete({ id });
+  //   return 1;
+  // };
 }
 module.exports = new CartService();

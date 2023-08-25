@@ -16,8 +16,6 @@
     },
     refreshToken: {
       type: String,
-      unique: true,
-      require: true,
     },
   });
 

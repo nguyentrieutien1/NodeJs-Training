@@ -53,8 +53,7 @@ class UserService {
       refreshToken,
       accessToken,
     });
-    delete token.publicKey;
-    return { token };
+    return { accessToken, refreshToken, user_id: token.user };
   };
   findOneById = async ({ _id }) => {
     const user = await User.findById(_id);
