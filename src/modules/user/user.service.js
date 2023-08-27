@@ -9,6 +9,7 @@ const bcrypt = require("bcrypt");
 const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
 const { Token } = require("../token/token.model");
+const tokenService = require("../token/token.service");
 class UserService {
   signUp = async ({ email, password }) => {
     if (!email || !password)
@@ -32,10 +33,11 @@ class UserService {
   signIn = async ({ email, password }) => {
     const user = await User.findOne({ email });
     if (!user) {
-      throw new NotFound("User not found !", { email });
+      throw new NotFound("email or password is incorrect !", { email });
     }
     const checkPassword = await bcrypt.compare(password, user.password);
-    if (!checkPassword) throw new BadRequestError("Incorrect password ! ");
+    if (!checkPassword)
+      throw new BadRequestError("email or password is incorrect !");
     const { publicKey, privateKey } = crypto.generateKeyPairSync("rsa", {
       modulusLength: 2048,
       publicKeyEncoding: {
@@ -53,7 +55,7 @@ class UserService {
     const refreshToken = jwt.sign({ _id: user._id }, privateKey.toString(), {
       algorithm: "RS256",
     });
-    const token = await Token.create({
+    const token = await tokenService.create({
       user: user._id,
       publicKey,
       refreshToken,
