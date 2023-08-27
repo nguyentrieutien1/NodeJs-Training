@@ -1,5 +1,6 @@
 const statusCode = {
   BADREQUEST: 400,
+  UNAUTHORIZED: 401,
   FORBIDDEN: 403,
   NOTFOUND: 404,
   CONFLICT: 409,
@@ -9,6 +10,7 @@ const reasonStatusCode = {
   FORBIDDEN: "Forbidden !",
   NOTFOUND: "Not found !",
   CONFLICT: "Conflict !",
+  UNAUTHORIZED: "Unauthorized !",
 };
 class ErrorResponse extends Error {
   constructor(message, errors, status) {
@@ -44,10 +46,20 @@ class Conflict extends ErrorResponse {
     super(message, errors, status);
   }
 }
+class Unauthorized extends ErrorResponse {
+  constructor(
+    message = reasonStatusCode.UNAUTHORIZED,
+    errors = {},
+    status = statusCode.UNAUTHORIZED
+  ) {
+    super(message, errors, status);
+  }
+}
 module.exports = {
   BadRequestError,
   NotFound,
   ErrorResponse,
   Conflict,
+  Unauthorized,
 };
 

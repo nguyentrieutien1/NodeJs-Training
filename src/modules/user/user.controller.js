@@ -6,7 +6,7 @@ class UserController {
     const { email, password } = req.body;
     try {
       const userInfo = await userService.signUp({ email, password });
-      return new Ok({
+      return new Success({
         data: userInfo,
         message: "User has been created !",
       }).send(res);
@@ -16,11 +16,24 @@ class UserController {
   };
   signIn = async (req, res) => {
     const { email, password } = req.body;
+    console.log(email, password);
     try {
       const userInfo = await userService.signIn({ email, password });
       return new Success({
         data: userInfo,
         message: "Login successful !",
+      }).send(res);
+    } catch (error) {
+      errorHandler(error, res);
+    }
+  };
+  logout = async (req, res) => {
+    try {
+      const { _id } = req.user;
+      const result = await userService.logout({ _id });
+      return new Ok({
+        data: result,
+        message: "logout successful !",
       }).send(res);
     } catch (error) {
       errorHandler(error, res);
