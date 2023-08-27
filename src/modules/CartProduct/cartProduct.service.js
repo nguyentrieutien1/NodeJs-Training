@@ -17,8 +17,7 @@ class CartProductSerice {
       product: payload?.id,
       quantity: payload?.quantity,
     });
-    console.log(cartProduct);
-    return cartProduct;
+      return cartProduct;
   };
   findOne = async ({ userId }) => {
     if (!userId) throw new BadRequestError("Missing user id");
